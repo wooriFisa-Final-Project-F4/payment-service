@@ -1,6 +1,6 @@
-package f4.paymentservice.kafka;
+package f4.kafka;
 
-import f4.paymentservice.dto.EndedAuctionEvent;
+import f4.dto.EndedAuctionEvent;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
