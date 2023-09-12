@@ -7,7 +7,7 @@ import f4.constant.ApiStatus;
 import f4.dto.EndedAuctionEvent;
 import f4.global.exception.FeignException;
 import f4.service.PaymentService;
-import f4.service.feign.MockServiceImpl;
+import f4.service.feign.MockServiceAPI;
 import f4.service.feign.dto.request.TransferRequestDto;
 import f4.service.feign.dto.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 
-  private final MockServiceImpl mockService;
+  private final MockServiceAPI mockService;
 
   @Override
   public void requestTransfer(EndedAuctionEvent event) {
