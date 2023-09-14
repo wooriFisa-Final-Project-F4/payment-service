@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
 public class PayConsumer {
 
   @Autowired
-  private PaymentService paymentService;
+  private final PaymentService paymentService;
 
   @KafkaListener(topics = "${spring.kafka.topic}", groupId = "${spring.kafka.consumer.group-id}")
   public void consume(EndedAuctionEvent event) {
     log.info(
         String.format("[%s] [%s] event received in payment service", LocalDateTime.now(), event));
 
-    log.info("{}(고유번호 {}) 님의 낙찰 상품에 대한 결제 요청 처리", event.getUsername(), event.getUserId());
+    log.info("{}[유저ID:{}] 님의 낙찰 상품에 대한 결제 요청 처리", event.getUsername(), event.getUserId());
     paymentService.requestTransfer(event);
   }
 }
