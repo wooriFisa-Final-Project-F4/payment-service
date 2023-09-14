@@ -23,10 +23,10 @@ public class PaymentServiceImpl implements PaymentService {
 
   @Override
   public void requestTransfer(EndedAuctionEvent event) {
-    TransferRequestDto requestDto = standByRequest(event);
+    TransferRequestDto transferRequest = standByRequest(event);
 
-    log.info("결제 요청 OpenFeign 통신을 시작합니다.");
-    ApiResponse<?> response = wooriMockServiceAPI.winningBidTransfer(requestDto);
+    log.info("결제 요청 OpenFeign 통신을 시작합니다. {}", transferRequest.toString());
+    ApiResponse<?> response = wooriMockServiceAPI.winningBidTransfer(transferRequest);
 
     if (SUCCESS != ApiStatus.of(response.getStatus())) {
       throw new FeignException(response.getError());
