@@ -1,24 +1,28 @@
 package f4.kafka;
 
 import f4.dto.EndedAuctionEvent;
+import f4.service.PaymentService;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
+@Slf4j
 @Service
 @AllArgsConstructor
 public class PayConsumer {
-  private static final Logger LOGGER = LoggerFactory.getLogger(PayConsumer.class);
-  // TODO: 서비스 클래스 호출
+
+  @Autowired
+  private PaymentService paymentService;
 
   @KafkaListener(topics = "${spring.kafka.topic}", groupId = "${spring.kafka.consumer.group-id}")
   public void consume(EndedAuctionEvent event) {
-    // TODO:consume하여 받아온 event를 처리할 서비스
-    LOGGER.info(
+    log.info(
         String.format("[%s] [%s] event received in payment service", LocalDateTime.now(), event));
+
+    log.info("{}(고유번호 {}) 님의 낙찰 상품에 대한 결제 요청 처리", event.getUsername(), event.getUserId());
+    paymentService.requestTransfer(event);
   }
 }
