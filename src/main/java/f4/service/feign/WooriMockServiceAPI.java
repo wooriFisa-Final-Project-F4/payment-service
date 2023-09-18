@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(value = "Mock", url = "${mock.url}")
-public interface MockServiceAPI {
+public interface WooriMockServiceAPI {
 
-  @PutMapping("/winning/bid-transfer")
+  @PutMapping("/woori/account/v1/winning/bid-transfer")
   ApiResponse<?> winningBidTransfer(@RequestBody TransferRequestDto transferRequestDto);
 }
